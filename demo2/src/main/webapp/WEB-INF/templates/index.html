@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>index</h1>
+
+<a th:href="@{/user}">查询所有信息</a></br>
+
+<a th:href="@{/user/1}">查询单个信息</a></br>
+
+<form th:action="@{/user}" method="post">
+    <input type="submit" value="添加">
+</form></br>
+
+<form th:action="@{/user}" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="submit" value="修改">
+</form></br>
+
+<form th:action="@{/user/1}" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="删除">
+</form></br>
+
+<a th:href="@{/error}">异常跳转</a></br>
+
+
+<table id="table">
+    <a @click="delete" th:href="@{/user/2}">删除</a>
+    <form id="deleteForm" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
+    <script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+    <script type="text/javascript">
+        var vue = new Vue({
+            el: "#table",
+            methods: {
+                delete: function (event) {
+                    var deleteFoem = document.getElementById("deleteForm");
+                    deleteFoem.action = event.target.href;
+                    deleteFoem.submit();
+                    //取消超链接的默认行为
+                    event.preventDefault();
+                }
+            }
+        });
+    </script>
+</table>
+</body>
+</html>
